@@ -41,6 +41,8 @@ public final class DefaultCalculateOperationUseCase implements CalculateOperatio
             case SUBTRACTION -> calculator.subtract(firstOperand, secondOperand);
             case MULTIPLICATION -> calculator.multiply(firstOperand, secondOperand);
             case DIVISION -> calculator.divide(firstOperand, secondOperand);
+            case POWER -> calculator.power(firstOperand, secondOperand);
+            case PERCENTAGE -> calculator.percentage(firstOperand, secondOperand);
         };
     }
 }

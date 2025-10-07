@@ -3,7 +3,7 @@ info:
   title: Calculator API
   version: 1.0.0
   description: >
-    Simple REST API that performs basic arithmetic operations (addition, subtraction, multiplication, division)
+    Simple REST API that performs arithmetic operations (addition, subtraction, multiplication, division, power, percentage)
     using decimal operands.
 servers:
   - url: http://localhost:8080
@@ -31,6 +31,16 @@ paths:
                   operation: DIVISION
                   firstOperand: 10
                   secondOperand: 2
+              power:
+                value:
+                  operation: POWER
+                  firstOperand: 2
+                  secondOperand: 3
+              percentage:
+                value:
+                  operation: PERCENTAGE
+                  firstOperand: 200
+                  secondOperand: 15
       responses:
         '200':
           description: Operation completed successfully.
@@ -53,6 +63,9 @@ paths:
                 divisionByZero:
                   value:
                     message: Cannot divide by zero
+                invalidExponent:
+                  value:
+                    message: Exponent must be an integer value
 components:
   schemas:
     CalculationRequest:
@@ -65,7 +78,14 @@ components:
         operation:
           type: string
           description: >
-            Operation to execute. Accepted values are ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION.
+            Operation to execute. Accepted values are ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION, POWER, PERCENTAGE.
+          enum:
+            - ADDITION
+            - SUBTRACTION
+            - MULTIPLICATION
+            - DIVISION
+            - POWER
+            - PERCENTAGE
           example: ADDITION
         firstOperand:
           type: number

@@ -89,7 +89,19 @@ class CalculatorControllerTest {
         mockMvc.perform(post("/api/v1/calculator")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"operation\":\"ADDITION\",\"firstOperand\":2}"))
-                .andExpect(status().isBadRequest())
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void should_return_bad_request_when_use_case_reports_illegal_argument() throws Exception {
+        // Given
+        when(useCase.calculate(any())).thenThrow(new IllegalArgumentException("Exponent must be an integer value"));
+
+        // When / Then
+        mockMvc.perform(post("/api/v1/calculator")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"operation\":\"POWER\",\"firstOperand\":2,\"secondOperand\":1.5}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Exponent must be an integer value"));
     }
 }

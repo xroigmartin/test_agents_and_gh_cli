@@ -10,7 +10,9 @@ public enum Operation {
     ADDITION,
     SUBTRACTION,
     MULTIPLICATION,
-    DIVISION;
+    DIVISION,
+    POWER,
+    PERCENTAGE;
 
     /**
      * Resolves an {@link Operation} from a case-insensitive string representation.

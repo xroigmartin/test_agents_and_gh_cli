@@ -86,6 +86,45 @@ class DefaultCalculateOperationUseCaseTest {
     }
 
     @Test
+    void should_return_power_when_operation_is_power() {
+        // Given
+        CalculateOperationCommand command = new CalculateOperationCommand(Operation.POWER, new BigDecimal("2"), new BigDecimal("3"));
+
+        // When
+        CalculationResult result = useCase.calculate(command);
+
+        // Then
+        assertEquals(Operation.POWER, result.operation());
+        assertEquals(new BigDecimal("8"), result.value());
+    }
+
+    @Test
+    void should_handle_negative_exponent_when_operation_is_power() {
+        // Given
+        CalculateOperationCommand command = new CalculateOperationCommand(Operation.POWER, new BigDecimal("4"), new BigDecimal("-2"));
+
+        // When
+        CalculationResult result = useCase.calculate(command);
+
+        // Then
+        assertEquals(Operation.POWER, result.operation());
+        assertEquals(new BigDecimal("0.0625"), result.value());
+    }
+
+    @Test
+    void should_return_percentage_when_operation_is_percentage() {
+        // Given
+        CalculateOperationCommand command = new CalculateOperationCommand(Operation.PERCENTAGE, new BigDecimal("200"), new BigDecimal("15"));
+
+        // When
+        CalculationResult result = useCase.calculate(command);
+
+        // Then
+        assertEquals(Operation.PERCENTAGE, result.operation());
+        assertEquals(new BigDecimal("30"), result.value());
+    }
+
+    @Test
     void should_throw_division_by_zero_when_divisor_is_zero() {
         // Given
         CalculateOperationCommand command = new CalculateOperationCommand(Operation.DIVISION, new BigDecimal("5"), BigDecimal.ZERO);

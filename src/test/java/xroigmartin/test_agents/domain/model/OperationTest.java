@@ -36,4 +36,19 @@ class OperationTest {
         // When / Then
         assertThrows(IllegalArgumentException.class, () -> Operation.from(rawValue));
     }
+
+    @Test
+    void should_resolve_operation_when_value_matches_new_operations() {
+        // Given
+        String percentage = "percentage";
+        String power = "POWER";
+
+        // When
+        Operation percentageOperation = Operation.from(percentage);
+        Operation powerOperation = Operation.from(power);
+
+        // Then
+        assertEquals(Operation.PERCENTAGE, percentageOperation);
+        assertEquals(Operation.POWER, powerOperation);
+    }
 }

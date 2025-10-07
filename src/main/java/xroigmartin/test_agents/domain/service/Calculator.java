@@ -43,4 +43,25 @@ public interface Calculator {
      * @throws xroigmartin.test_agents.domain.exception.DivisionByZeroException if {@code divisor} is zero
      */
     BigDecimal divide(BigDecimal dividend, BigDecimal divisor);
+
+    /**
+     * Raises {@code base} to the power of {@code exponent}. The exponent must be an integer.
+     *
+     * @param base value to be raised
+     * @param exponent integer exponent applied to the base
+     * @return base raised to exponent
+     * @throws IllegalArgumentException when the exponent is not an integer value
+     * @throws xroigmartin.test_agents.domain.exception.DivisionByZeroException when computing with a zero base and a negative exponent
+     */
+    BigDecimal power(BigDecimal base, BigDecimal exponent);
+
+    /**
+     * Calculates the percentage represented by {@code percent} over {@code base}.
+     * {@code percent} is treated as a value between -infinity and +infinity (e.g. 15 means 15%).
+     *
+     * @param base value to apply the percentage to
+     * @param percent percentage value
+     * @return percentage of the base
+     */
+    BigDecimal percentage(BigDecimal base, BigDecimal percent);
 }

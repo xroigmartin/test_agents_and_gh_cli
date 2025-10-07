@@ -1,7 +1,7 @@
 # Calculator API
 
 ## Overview
-This project provides a simple REST API built with Spring Boot that emulates a calculator. It follows a hexagonal architecture to keep the domain logic isolated from infrastructure layers and exposes a single endpoint that handles the four basic arithmetic operations: addition, subtraction, multiplication and division.
+This project provides a simple REST API built with Spring Boot that emulates a calculator. It follows a hexagonal architecture to keep the domain logic isolated from infrastructure layers and exposes a single endpoint that handles six operations: addition, subtraction, multiplication, division, power and percentage.
 
 ## Running the tests
 ```bash
