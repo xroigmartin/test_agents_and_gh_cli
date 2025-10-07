@@ -5,6 +5,13 @@ import java.util.Objects;
 
 import xroigmartin.test_agents.domain.model.Operation;
 
+/**
+ * Command object that describes an arithmetic operation request coming from an input port.
+ *
+ * @param operation operation to be executed
+ * @param firstOperand first numeric operand
+ * @param secondOperand second numeric operand
+ */
 public record CalculateOperationCommand(Operation operation, BigDecimal firstOperand, BigDecimal secondOperand) {
 
     public CalculateOperationCommand {

@@ -9,14 +9,25 @@ import xroigmartin.test_agents.domain.model.CalculationResult;
 import xroigmartin.test_agents.domain.model.Operation;
 import xroigmartin.test_agents.domain.service.Calculator;
 
+/**
+ * Default implementation of {@link CalculateOperationUseCase} that delegates the actual mathematics to a domain {@link Calculator}.
+ */
 public final class DefaultCalculateOperationUseCase implements CalculateOperationUseCase {
 
     private final Calculator calculator;
 
+    /**
+     * Creates the use case with the calculator dependency.
+     *
+     * @param calculator domain service used to execute operations
+     */
     public DefaultCalculateOperationUseCase(Calculator calculator) {
         this.calculator = Objects.requireNonNull(calculator, "calculator must not be null");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CalculationResult calculate(CalculateOperationCommand command) {
         Objects.requireNonNull(command, "command must not be null");

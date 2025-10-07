@@ -1,0 +1,103 @@
+openapi: 3.0.3
+info:
+  title: Calculator API
+  version: 1.0.0
+  description: >
+    Simple REST API that performs basic arithmetic operations (addition, subtraction, multiplication, division)
+    using decimal operands.
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/v1/calculator:
+    post:
+      summary: Calculate a basic arithmetic operation
+      description: >
+        Executes the requested arithmetic operation using the provided operands and returns the result.
+      operationId: calculateOperation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalculationRequest'
+            examples:
+              addition:
+                value:
+                  operation: ADDITION
+                  firstOperand: 5
+                  secondOperand: 3
+              division:
+                value:
+                  operation: DIVISION
+                  firstOperand: 10
+                  secondOperand: 2
+      responses:
+        '200':
+          description: Operation completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalculationResponse'
+              examples:
+                success:
+                  value:
+                    operation: ADDITION
+                    result: 8
+        '400':
+          description: The request was invalid (unsupported operation, validation error, or division by zero).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                divisionByZero:
+                  value:
+                    message: Cannot divide by zero
+components:
+  schemas:
+    CalculationRequest:
+      type: object
+      required:
+        - operation
+        - firstOperand
+        - secondOperand
+      properties:
+        operation:
+          type: string
+          description: >
+            Operation to execute. Accepted values are ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION.
+          example: ADDITION
+        firstOperand:
+          type: number
+          format: double
+          description: First operand for the operation.
+          example: 5
+        secondOperand:
+          type: number
+          format: double
+          description: Second operand for the operation.
+          example: 3
+    CalculationResponse:
+      type: object
+      required:
+        - operation
+        - result
+      properties:
+        operation:
+          type: string
+          description: Operation that was executed.
+          example: ADDITION
+        result:
+          type: number
+          format: double
+          description: Numerical result of the calculation.
+          example: 8
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Description of the error.
+          example: Cannot divide by zero

@@ -6,6 +6,10 @@ import java.util.Objects;
 
 import xroigmartin.test_agents.domain.exception.DivisionByZeroException;
 
+/**
+ * Default implementation of {@link Calculator} that relies on {@link MathContext#DECIMAL128}
+ * to perform deterministic decimal arithmetic.
+ */
 public final class BasicCalculator implements Calculator {
 
     private static final MathContext DEFAULT_MATH_CONTEXT = MathContext.DECIMAL128;
