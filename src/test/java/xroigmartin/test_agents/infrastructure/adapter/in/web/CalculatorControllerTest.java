@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
@@ -70,5 +71,25 @@ class CalculatorControllerTest {
                         .content("{\"operation\":\"DIVISION\",\"firstOperand\":5,\"secondOperand\":0}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json("{\"message\":\"Cannot divide by zero\"}"));
+    }
+
+    @Test
+    void should_return_bad_request_when_operation_is_unknown() throws Exception {
+        // When / Then
+        mockMvc.perform(post("/api/v1/calculator")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"operation\":\"EXPONENTIATION\",\"firstOperand\":2,\"secondOperand\":3}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Unsupported operation: EXPONENTIATION"));
+    }
+
+    @Test
+    void should_return_bad_request_when_request_is_missing_fields() throws Exception {
+        // When / Then
+        mockMvc.perform(post("/api/v1/calculator")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"operation\":\"ADDITION\",\"firstOperand\":2}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(status().isBadRequest());
     }
 }

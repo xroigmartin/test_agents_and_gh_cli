@@ -73,6 +73,19 @@ class DefaultCalculateOperationUseCaseTest {
     }
 
     @Test
+    void should_round_division_result_using_decimal128_precision() {
+        // Given
+        CalculateOperationCommand command = new CalculateOperationCommand(Operation.DIVISION, new BigDecimal("1"), new BigDecimal("3"));
+
+        // When
+        CalculationResult result = useCase.calculate(command);
+
+        // Then
+        assertEquals(Operation.DIVISION, result.operation());
+        assertEquals(new BigDecimal("0.3333333333333333333333333333333333"), result.value());
+    }
+
+    @Test
     void should_throw_division_by_zero_when_divisor_is_zero() {
         // Given
         CalculateOperationCommand command = new CalculateOperationCommand(Operation.DIVISION, new BigDecimal("5"), BigDecimal.ZERO);
