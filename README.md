@@ -5,39 +5,8 @@ This project provides a simple REST API built with Spring Boot that emulates a c
 
 ## Running the tests
 ```bash
-mvn -DskipITs -DskipTests=false test
+./mvnw -DskipITs -DskipTests=false test
 ```
 
-## Usage
-The API is available at `POST /api/v1/calculator`. Send a JSON payload containing the operation and the two operands:
-
-```http
-POST /api/v1/calculator
-Content-Type: application/json
-
-{
-  "operation": "ADDITION",
-  "firstOperand": 5,
-  "secondOperand": 3
-}
-```
-
-Successful responses return HTTP 200 with the executed operation and the result:
-
-```json
-{
-  "operation": "ADDITION",
-  "result": 8
-}
-```
-
-Invalid requests (unsupported operation, blank fields, division by zero) return HTTP 400 with an error message:
-
-```json
-{
-  "message": "Cannot divide by zero"
-}
-```
-
-## OpenAPI definition
-An OpenAPI specification describing the endpoint is available at `src/main/resources/openapi/calculator-api.yaml`. You can import it into tools such as Swagger UI or Postman to explore the contract interactively.
+## API documentation
+Interactive documentation is served at [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) once the application is running. The generated OpenAPI definition can also be downloaded from [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs) or inspected offline at `src/main/resources/openapi/calculator-api.yaml`.
