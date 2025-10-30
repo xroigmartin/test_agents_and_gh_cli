@@ -11,8 +11,8 @@ import java.util.Objects;
  */
 public record CalculationResponse(String operation, BigDecimal result) {
 
-    public CalculationResponse {
-        Objects.requireNonNull(operation, "operation must not be null");
-        Objects.requireNonNull(result, "result must not be null");
-    }
+  public CalculationResponse {
+    Objects.requireNonNull(operation, "operation must not be null");
+    Objects.requireNonNull(result, "result must not be null");
+  }
 }

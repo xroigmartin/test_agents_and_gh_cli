@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public record ErrorResponse(String message) {
 
-    public ErrorResponse {
-        Objects.requireNonNull(message, "message must not be null");
-    }
+  public ErrorResponse {
+    Objects.requireNonNull(message, "message must not be null");
+  }
 }

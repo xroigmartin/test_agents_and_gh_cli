@@ -7,48 +7,48 @@ import org.junit.jupiter.api.Test;
 
 class OperationTest {
 
-    @Test
-    void should_resolve_operation_when_value_is_lowercase() {
-        // Given
-        String rawValue = "addition";
+  @Test
+  void should_resolve_operation_when_value_is_lowercase() {
+    // Given
+    String rawValue = "addition";
 
-        // When
-        Operation operation = Operation.from(rawValue);
+    // When
+    Operation operation = Operation.from(rawValue);
 
-        // Then
-        assertEquals(Operation.ADDITION, operation);
-    }
+    // Then
+    assertEquals(Operation.ADDITION, operation);
+  }
 
-    @Test
-    void should_throw_exception_when_operation_is_blank() {
-        // Given
-        String rawValue = "   ";
+  @Test
+  void should_throw_exception_when_operation_is_blank() {
+    // Given
+    String rawValue = "   ";
 
-        // When / Then
-        assertThrows(IllegalArgumentException.class, () -> Operation.from(rawValue));
-    }
+    // When / Then
+    assertThrows(IllegalArgumentException.class, () -> Operation.from(rawValue));
+  }
 
-    @Test
-    void should_throw_exception_when_operation_is_unknown() {
-        // Given
-        String rawValue = "EXPONENTIATION";
+  @Test
+  void should_throw_exception_when_operation_is_unknown() {
+    // Given
+    String rawValue = "EXPONENTIATION";
 
-        // When / Then
-        assertThrows(IllegalArgumentException.class, () -> Operation.from(rawValue));
-    }
+    // When / Then
+    assertThrows(IllegalArgumentException.class, () -> Operation.from(rawValue));
+  }
 
-    @Test
-    void should_resolve_operation_when_value_matches_new_operations() {
-        // Given
-        String percentage = "percentage";
-        String power = "POWER";
+  @Test
+  void should_resolve_operation_when_value_matches_new_operations() {
+    // Given
+    String percentage = "percentage";
+    String power = "POWER";
 
-        // When
-        Operation percentageOperation = Operation.from(percentage);
-        Operation powerOperation = Operation.from(power);
+    // When
+    Operation percentageOperation = Operation.from(percentage);
+    Operation powerOperation = Operation.from(power);
 
-        // Then
-        assertEquals(Operation.PERCENTAGE, percentageOperation);
-        assertEquals(Operation.POWER, powerOperation);
-    }
+    // Then
+    assertEquals(Operation.PERCENTAGE, percentageOperation);
+    assertEquals(Operation.POWER, powerOperation);
+  }
 }
