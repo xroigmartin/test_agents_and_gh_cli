@@ -57,6 +57,28 @@ Servicio backend en Java con Spring Boot, diseñado con **arquitectura hexagonal
   - Sin warnings críticos del compilador.
 - **Salida del agente**: plan breve, diffs mínimos, resultados de tests, riesgos, próximos pasos.
 
+### 5.1 Estilo de código (Google Java Style Guide)
+Todo el código Java debe cumplir la guía oficial de estilo de Google:
+👉 https://google.github.io/styleguide/javaguide.html
+
+**Reglas principales:**
+- Indentación: **2 espacios** por nivel.
+- Longitud máxima de línea: **100 caracteres**.
+- Llaves al final de línea (`K&R` style).
+- Imports **sin wildcard** (`*`) y ordenados alfabéticamente.
+- Nombres:
+    - Clases e interfaces → `UpperCamelCase`
+    - Métodos y variables → `lowerCamelCase`
+    - Constantes → `UPPER_SNAKE_CASE`
+- Comentarios Javadoc en clases y métodos públicos.
+- Anotaciones en la misma línea cuando sea posible.
+
+**Validación automática:**
+- Usa el formateador `google-java-format` (por ejemplo, vía plugin Spotless o Maven).
+- Ejecuta `checkstyle` con el perfil oficial `google_checks.xml` antes de entregar cambios.
+- Si hay infracciones de estilo, el agente debe corregirlas antes de proponer el diff final.
+
+
 ## 6. Estructura de paquetes (sugerida)
 ```
 src/
@@ -93,6 +115,12 @@ src/
 ./mvnw -q checkstyle:check    # opcional
 ./mvnw -q pmd:check           # opcional
 ./mvnw -q jacoco:report       # opcional (cobertura)
+
+# Estilo de código (Google Java Style)
+./mvnw -q spotless:apply       # aplica el formato google-java-format
+./mvnw -q spotless:check       # verifica el formato
+./mvnw -q checkstyle:check     # valida estilo según google_checks.xml
+
 ```
 
 **Notas importantes sobre la lista blanca**:
@@ -101,13 +129,21 @@ src/
 - Si un plugin opcional no existe, el agente **no** debe invocarlo.
 - Para máxima portabilidad, preferir `./mvnw` (wrapper).
 
-## 8. Convenciones de código
+## 8. Convenciones de código y estilo
+
+- Basado en **Google Java Style Guide** (https://google.github.io/styleguide/javaguide.html).
 - Java 21, anotaciones de nullidad donde aplique.
 - Clases del dominio **sin** anotaciones de Spring.
 - Inyección por constructor en application/infrastructure.
 - Evitar `static` compartido; preferir dependencias explícitas.
 - Excepciones específicas del dominio; evitar genéricas.
-- Nomenclatura: `XxxPort` (interfaces), `XxxAdapter` (implementaciones), `XxxUseCase` (aplicación).
+- Nomenclatura:
+    - `XxxPort` (interfaces)
+    - `XxxAdapter` (implementaciones)
+    - `XxxUseCase` (aplicación)
+- **Formato automático** con `google-java-format` y validación con `checkstyle` (perfil Google).
+- El agente debe aplicar formato antes de devolver cualquier fragmento de código Java.
+
 
 ## 9. Git y PRs (GitHub)
 - Rama de trabajo: `agent/<issue-id>-<slug-corto>` (ej.: `agent/123-crear-pedido`).
@@ -226,3 +262,9 @@ class GetOrderUseCaseTest {
 - No acoples `domain` a `infrastructure` (ni imports desde infra).
 - Si necesitas reloj actual, inyecta una abstracción (p. ej., `Clock`) para controlar el tiempo en tests.
 - Si no existe un plugin invocado en la lista blanca, **no** lo ejecutes.
+
+## 14. Referencias de estilo y herramientas
+- Google Java Style Guide → https://google.github.io/styleguide/javaguide.html
+- Plugin Maven Spotless → https://github.com/diffplug/spotless
+- Checkstyle Google config → https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml
+
